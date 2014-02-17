@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNet.FeatureModel;
 
-namespace Microsoft.AspNet.PipelineCore.Infrastructure
+namespace Microsoft.AspNet.PipelineCore.Internal
 {
-    internal struct FeatureReference<T>
+    public struct FeatureReference<T>
     {
         private T _feature;
         private int _revision;

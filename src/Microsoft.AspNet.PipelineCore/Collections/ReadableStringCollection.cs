@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Microsoft.AspNet.Abstractions.Infrastructure;
 using Microsoft.AspNet.Abstractions;
-using Microsoft.AspNet.PipelineCore.Infrastructure;
+using Microsoft.AspNet.PipelineCore.Internal;
 
 namespace Microsoft.AspNet.PipelineCore.Collections
 {

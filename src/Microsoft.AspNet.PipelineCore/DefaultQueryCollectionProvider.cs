@@ -3,18 +3,18 @@ using Microsoft.AspNet.Abstractions;
 using Microsoft.AspNet.FeatureModel;
 using Microsoft.AspNet.HttpFeature;
 using Microsoft.AspNet.PipelineCore.Collections;
-using Microsoft.AspNet.PipelineCore.Infrastructure;
+using Microsoft.AspNet.PipelineCore.Internal;
 
 namespace Microsoft.AspNet.PipelineCore
 {
-    public class DefaultCanHasQuery : ICanHasQuery
+    public class DefaultQueryCollectionProvider : IQueryCollectionProvider
     {
+        private readonly FeatureReference<IHttpRequestInformation> _request = FeatureReference<IHttpRequestInformation>.Default;
         private readonly IFeatureCollection _features;
-        private FeatureReference<IHttpRequestInformation> _request = FeatureReference<IHttpRequestInformation>.Default;
         private string _queryString;
         private IReadableStringCollection _query;
 
-        public DefaultCanHasQuery(IFeatureCollection features)
+        public DefaultQueryCollectionProvider(IFeatureCollection features)
         {
             _features = features;
         }
@@ -27,7 +27,7 @@ namespace Microsoft.AspNet.PipelineCore
                 if (_query == null || _queryString != queryString)
                 {
                     _queryString = queryString;
-                    // TODO
+                    
                     _query = new ReadableStringCollection(new Dictionary<string, string[]>());
                 }
                 return _query;

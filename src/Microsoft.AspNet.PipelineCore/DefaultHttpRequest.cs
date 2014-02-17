@@ -5,7 +5,7 @@ using Microsoft.AspNet.Abstractions;
 using Microsoft.AspNet.FeatureModel;
 using Microsoft.AspNet.HttpFeature;
 using Microsoft.AspNet.PipelineCore.Collections;
-using Microsoft.AspNet.PipelineCore.Infrastructure;
+using Microsoft.AspNet.PipelineCore.Internal;
 
 namespace Microsoft.AspNet.PipelineCore
 {
@@ -17,7 +17,7 @@ namespace Microsoft.AspNet.PipelineCore
         private FeatureReference<IHttpRequestInformation> _request = FeatureReference<IHttpRequestInformation>.Default;
         private FeatureReference<IHttpConnection> _connection = FeatureReference<IHttpConnection>.Default;
         private FeatureReference<IHttpTransportLayerSecurity> _transportLayerSecurity = FeatureReference<IHttpTransportLayerSecurity>.Default;
-        private FeatureReference<ICanHasQuery> _canHasQuery = FeatureReference<ICanHasQuery>.Default;
+        private FeatureReference<IQueryCollectionProvider> _canHasQuery = FeatureReference<IQueryCollectionProvider>.Default;
         private FeatureReference<ICanHasRequestCookies> _canHasCookies = FeatureReference<ICanHasRequestCookies>.Default;
 
         public DefaultHttpRequest(DefaultHttpContext context, IFeatureCollection features)
@@ -41,9 +41,9 @@ namespace Microsoft.AspNet.PipelineCore
             get { return _transportLayerSecurity.Fetch(_features); }
         }
 
-        private ICanHasQuery CanHasQuery
+        private IQueryCollectionProvider CanHasQuery
         {
-            get { return _canHasQuery.Fetch(_features) ?? _canHasQuery.Update(_features, new DefaultCanHasQuery(_features)); }
+            get { return _canHasQuery.Fetch(_features) ?? _canHasQuery.Update(_features, new DefaultQueryCollectionProvider(_features)); }
         }
 
         private ICanHasRequestCookies CanHasRequestCookies

@@ -7,7 +7,7 @@ using Microsoft.AspNet.Abstractions.Infrastructure;
 using Microsoft.AspNet.FeatureModel;
 using Microsoft.AspNet.HttpFeature;
 using Microsoft.AspNet.PipelineCore.Collections;
-using Microsoft.AspNet.PipelineCore.Infrastructure;
+using Microsoft.AspNet.PipelineCore.Internal;
 
 namespace Microsoft.AspNet.PipelineCore
 {

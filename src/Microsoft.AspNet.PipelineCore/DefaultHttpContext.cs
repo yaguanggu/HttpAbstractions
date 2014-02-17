@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.AspNet.Abstractions;
 using Microsoft.AspNet.FeatureModel;
-using Microsoft.AspNet.PipelineCore.Infrastructure;
+using Microsoft.AspNet.PipelineCore.Internal;
 
 namespace Microsoft.AspNet.PipelineCore
 {
