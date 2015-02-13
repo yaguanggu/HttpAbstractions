@@ -6,17 +6,14 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.AspNet.Http;
-using Microsoft.AspNet.Http.Infrastructure;
-using Microsoft.AspNet.Http.Security;
 using Microsoft.AspNet.FeatureModel;
-using Microsoft.AspNet.Http.Interfaces;
-using Microsoft.AspNet.Http.Interfaces.Security;
 using Microsoft.AspNet.Http.Core.Collections;
 using Microsoft.AspNet.Http.Core.Infrastructure;
 using Microsoft.AspNet.Http.Core.Security;
+using Microsoft.AspNet.Http.Infrastructure;
+using Microsoft.AspNet.Http.Interfaces;
+using Microsoft.AspNet.Http.Interfaces.Security;
+using Microsoft.AspNet.Http.Security;
 
 namespace Microsoft.AspNet.Http.Core
 {
@@ -148,21 +145,23 @@ namespace Microsoft.AspNet.Http.Core
             }
         }
 
-        public override void SignIn(AuthenticationProperties properties, [NotNull] IEnumerable<ClaimsIdentity> identities)
+        public override void SignIn(string authenticationScheme, [NotNull] ClaimsPrincipal principal, AuthenticationProperties properties)
         {
             var handler = HttpAuthenticationFeature.Handler;
 
-            var signInContext = new SignInContext(identities, properties == null ? null : properties.Dictionary);
+            var signInContext = new SignInContext(principal, properties == null ? null : properties.Dictionary);
             if (handler != null)
             {
                 handler.SignIn(signInContext);
             }
 
-            // Verify all types ack'd
-            IEnumerable<string> leftovers = identities.Select(identity => identity.AuthenticationType).Except(signInContext.Accepted);
-            if (leftovers.Any())
+            //// Verify all types ack'd
+            //IEnumerable<string> leftovers = identities.Select(identity => identity.AuthenticationType).Except(signInContext.Accepted);
+            //if (leftovers.Any())
+            if (!signInContext.Accepted.Contains(authenticationScheme))
             {
-                throw new InvalidOperationException("The following authentication types were not accepted: " + string.Join(", ", leftovers));
+                //throw new InvalidOperationException("The following authentication types were not accepted: " + string.Join(", ", leftovers));
+                throw new InvalidOperationException("The following authentication types were not accepted: " + authenticationScheme);
             }
         }
 

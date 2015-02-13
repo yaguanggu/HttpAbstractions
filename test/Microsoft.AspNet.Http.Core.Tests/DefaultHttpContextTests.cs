@@ -66,7 +66,7 @@ namespace Microsoft.AspNet.Http.Core.Tests
         public void SignInWithNoAuthMiddlewareThrows()
         {
             var context = CreateContext();
-            Assert.Throws<InvalidOperationException>(() => context.Response.SignIn(new ClaimsIdentity("Foo")));
+            Assert.Throws<InvalidOperationException>(() => context.Response.SignIn("Foo", new ClaimsPrincipal()));
         }
 
         [Fact]

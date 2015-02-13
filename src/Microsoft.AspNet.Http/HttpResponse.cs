@@ -71,32 +71,7 @@ namespace Microsoft.AspNet.Http
 
         public abstract void Challenge(AuthenticationProperties properties, IEnumerable<string> authenticationSchemes);
 
-        public virtual void SignIn(ClaimsIdentity identity)
-        {
-            SignIn(properties: null, identity: identity);
-        }
-
-        public virtual void SignIn(AuthenticationProperties properties, ClaimsIdentity identity)
-        {
-            SignIn(properties, new[] { identity });
-        }
-
-        public virtual void SignIn(params ClaimsIdentity[] identities)
-        {
-            SignIn(properties: null, identities: (IEnumerable<ClaimsIdentity>)identities);
-        }
-
-        public virtual void SignIn(IEnumerable<ClaimsIdentity> identities)
-        {
-            SignIn(properties: null, identities: identities);
-        }
-
-        public virtual void SignIn(AuthenticationProperties properties, params ClaimsIdentity[] identities)
-        {
-            SignIn(properties, (IEnumerable<ClaimsIdentity>)identities);
-        }
-
-        public abstract void SignIn(AuthenticationProperties properties, IEnumerable<ClaimsIdentity> identities);
+        public abstract void SignIn(string authenticationScheme, ClaimsPrincipal principal, AuthenticationProperties properties = null);
 
         public virtual void SignOut()
         {
