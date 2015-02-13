@@ -1,7 +1,6 @@
 // Copyright (c) Microsoft Open Technologies, Inc. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 
-using System;
 using System.Security.Claims;
 using System.Security.Principal;
 
@@ -29,7 +28,7 @@ namespace Microsoft.AspNet.Http.Security
         }
 
         /// <summary>
-        /// Contains the claims that were authenticated by the given AuthenticationType. If the authentication
+        /// Contains the claims that were authenticated by the given AuthenticationScheme. If the authentication
         /// type was not successful the Identity property will be null.
         /// </summary>
         public ClaimsIdentity Identity { get; private set; }

@@ -129,19 +129,19 @@ namespace Microsoft.AspNet.Http.Core
             Headers.Set(Constants.Headers.Location, location);
         }
 
-        public override void Challenge(AuthenticationProperties properties, [NotNull] IEnumerable<string> authenticationTypes)
+        public override void Challenge(AuthenticationProperties properties, [NotNull] IEnumerable<string> authenticationSchemes)
         {
             HttpResponseFeature.StatusCode = 401;
             var handler = HttpAuthenticationFeature.Handler;
 
-            var challengeContext = new ChallengeContext(authenticationTypes, properties == null ? null : properties.Dictionary);
+            var challengeContext = new ChallengeContext(authenticationSchemes, properties == null ? null : properties.Dictionary);
             if (handler != null)
             {
                 handler.Challenge(challengeContext);
             }
 
             // Verify all types ack'd
-            IEnumerable<string> leftovers = authenticationTypes.Except(challengeContext.Accepted);
+            IEnumerable<string> leftovers = authenticationSchemes.Except(challengeContext.Accepted);
             if (leftovers.Any())
             {
                 throw new InvalidOperationException("The following authentication types were not accepted: " + string.Join(", ", leftovers));
@@ -166,18 +166,18 @@ namespace Microsoft.AspNet.Http.Core
             }
         }
 
-        public override void SignOut([NotNull] IEnumerable<string> authenticationTypes)
+        public override void SignOut([NotNull] IEnumerable<string> authenticationSchemes)
         {
             var handler = HttpAuthenticationFeature.Handler;
 
-            var signOutContext = new SignOutContext(authenticationTypes);
+            var signOutContext = new SignOutContext(authenticationSchemes);
             if (handler != null)
             {
                 handler.SignOut(signOutContext);
             }
 
             // Verify all types ack'd
-            IEnumerable<string> leftovers = authenticationTypes.Except(signOutContext.Accepted);
+            IEnumerable<string> leftovers = authenticationSchemes.Except(signOutContext.Accepted);
             if (leftovers.Any())
             {
                 throw new InvalidOperationException("The following authentication types were not accepted: " + string.Join(", ", leftovers));

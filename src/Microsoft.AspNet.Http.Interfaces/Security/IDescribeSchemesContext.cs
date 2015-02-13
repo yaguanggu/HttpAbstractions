@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Microsoft.AspNet.Http.Interfaces.Security
 {
-    public interface IAuthTypeContext
+    public interface IDescribeSchemesContext
     {
         void Accept(IDictionary<string,object> description);
     }

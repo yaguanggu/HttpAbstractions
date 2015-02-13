@@ -44,32 +44,32 @@ namespace Microsoft.AspNet.Http
             Challenge(properties, new string[0]);
         }
 
-        public virtual void Challenge(string authenticationType)
+        public virtual void Challenge(string authenticationScheme)
         {
-            Challenge(new[] { authenticationType });
+            Challenge(new[] { authenticationScheme });
         }
 
-        public virtual void Challenge(AuthenticationProperties properties, string authenticationType)
+        public virtual void Challenge(AuthenticationProperties properties, string authenticationScheme)
         {
-            Challenge(properties, new[] { authenticationType });
+            Challenge(properties, new[] { authenticationScheme });
         }
 
-        public virtual void Challenge(params string[] authenticationTypes)
+        public virtual void Challenge(params string[] authenticationSchemes)
         {
-            Challenge((IEnumerable<string>)authenticationTypes);
+            Challenge((IEnumerable<string>)authenticationSchemes);
         }
 
-        public virtual void Challenge(IEnumerable<string> authenticationTypes)
+        public virtual void Challenge(IEnumerable<string> authenticationSchemes)
         {
-            Challenge(properties: null, authenticationTypes:  authenticationTypes);
+            Challenge(properties: null, authenticationSchemes:  authenticationSchemes);
         }
 
-        public virtual void Challenge(AuthenticationProperties properties, params string[] authenticationTypes)
+        public virtual void Challenge(AuthenticationProperties properties, params string[] authenticationSchemes)
         {
-            Challenge(properties, (IEnumerable<string>)authenticationTypes);
+            Challenge(properties, (IEnumerable<string>)authenticationSchemes);
         }
 
-        public abstract void Challenge(AuthenticationProperties properties, IEnumerable<string> authenticationTypes);
+        public abstract void Challenge(AuthenticationProperties properties, IEnumerable<string> authenticationSchemes);
 
         public virtual void SignIn(ClaimsIdentity identity)
         {
@@ -103,11 +103,11 @@ namespace Microsoft.AspNet.Http
             SignOut(new string[0]);
         }
 
-        public virtual void SignOut(string authenticationType)
+        public virtual void SignOut(string authenticationScheme)
         {
-            SignOut(new[] { authenticationType });
+            SignOut(new[] { authenticationScheme });
         }
 
-        public abstract void SignOut(IEnumerable<string> authenticationTypes);
+        public abstract void SignOut(IEnumerable<string> authenticationSchemes);
     }
 }

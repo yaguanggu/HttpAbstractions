@@ -11,13 +11,13 @@ namespace Microsoft.AspNet.Http.Core.Security
     {
         private List<string> _accepted;
 
-        public SignOutContext([NotNull] IEnumerable<string> authenticationTypes)
+        public SignOutContext([NotNull] IEnumerable<string> authenticationSchemes)
         {
-            AuthenticationTypes = authenticationTypes;
+            AuthenticationSchemes = authenticationSchemes;
             _accepted = new List<string>();
         }
 
-        public IEnumerable<string> AuthenticationTypes { get; private set; }
+        public IEnumerable<string> AuthenticationSchemes { get; private set; }
 
         public IEnumerable<string> Accepted
         {

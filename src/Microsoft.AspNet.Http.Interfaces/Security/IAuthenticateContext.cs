@@ -8,10 +8,10 @@ namespace Microsoft.AspNet.Http.Interfaces.Security
 {
     public interface IAuthenticateContext
     {
-        IEnumerable<string> AuthenticationTypes { get; }
+        IEnumerable<string> AuthenticationSchemes { get; }
 
         void Authenticated(ClaimsIdentity identity, IDictionary<string, string> properties, IDictionary<string, object> description);
 
-        void NotAuthenticated(string authenticationType, IDictionary<string, string> properties, IDictionary<string, object> description);
+        void NotAuthenticated(string authenticationScheme, IDictionary<string, string> properties, IDictionary<string, object> description);
     }
 }
