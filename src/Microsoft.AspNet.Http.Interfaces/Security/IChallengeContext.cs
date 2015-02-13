@@ -7,7 +7,7 @@ namespace Microsoft.AspNet.Http.Interfaces.Security
 {
     public interface IChallengeContext
     {
-        IEnumerable<string> AuthenticationTypes {get;}
+        IEnumerable<string> AuthenticationSchemes {get;}
         IDictionary<string,string> Properties {get;}
 
         void Accept(string authenticationType, IDictionary<string,object> description);

@@ -14,14 +14,14 @@ namespace Microsoft.AspNet.Http.Core.Security
     {
         private List<string> _accepted;
 
-        public ChallengeContext([NotNull] IEnumerable<string> authenticationTypes, IDictionary<string, string> properties)
+        public ChallengeContext([NotNull] IEnumerable<string> authenticationSchemes, IDictionary<string, string> properties)
         {
-            AuthenticationTypes = authenticationTypes;
+            AuthenticationSchemes = authenticationSchemes;
             Properties = properties ?? new Dictionary<string, string>(StringComparer.Ordinal);
             _accepted = new List<string>();
         }
 
-        public IEnumerable<string> AuthenticationTypes { get; private set; }
+        public IEnumerable<string> AuthenticationSchemes { get; private set; }
 
         public IDictionary<string, string> Properties { get; private set; }
 

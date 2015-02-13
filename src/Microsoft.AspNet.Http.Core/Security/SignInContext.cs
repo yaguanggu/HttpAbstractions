@@ -28,9 +28,9 @@ namespace Microsoft.AspNet.Http.Core.Security
             get { return _accepted; }
         }
 
-        public void Accept(string authenticationType, IDictionary<string, object> description)
+        public void Accept(string authenticationScheme, IDictionary<string, object> description)
         {
-            _accepted.Add(authenticationType);
+            _accepted.Add(authenticationScheme);
         }
     }
 }
