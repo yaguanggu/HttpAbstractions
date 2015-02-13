@@ -17,11 +17,11 @@ namespace Microsoft.AspNet.Http.Security
         /// <param name="identity">Assigned to Identity. May be null.</param>
         /// <param name="properties">Assigned to Properties. Contains extra information carried along with the identity.</param>
         /// <param name="description">Assigned to Description. Contains information describing the authentication provider.</param>
-        public AuthenticationResult(IIdentity identity, [NotNull] AuthenticationProperties properties, [NotNull] AuthenticationDescription description)
+        public AuthenticationResult(IPrincipal principal, [NotNull] AuthenticationProperties properties, [NotNull] AuthenticationDescription description)
         {
-            if (identity != null)
+            if (principal != null)
             {
-                Identity = identity as ClaimsIdentity ?? new ClaimsIdentity(identity);
+                principal = principal as ClaimsPrincipal ?? new ClaimsPrincipal(principal);
             }
             Properties = properties;
             Description = description;
@@ -29,9 +29,9 @@ namespace Microsoft.AspNet.Http.Security
 
         /// <summary>
         /// Contains the claims that were authenticated by the given AuthenticationScheme. If the authentication
-        /// type was not successful the Identity property will be null.
+        /// scheme was not successful the Identity property will be null.
         /// </summary>
-        public ClaimsIdentity Identity { get; private set; }
+        public ClaimsPrincipal Principal { get; private set; }
 
         /// <summary>
         /// Contains extra values that were provided with the original SignIn call.

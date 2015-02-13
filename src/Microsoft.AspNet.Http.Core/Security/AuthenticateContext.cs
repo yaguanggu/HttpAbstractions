@@ -32,11 +32,11 @@ namespace Microsoft.AspNet.Http.Core.Security
             get { return _accepted; }
         }
 
-        public void Authenticated(ClaimsIdentity identity, IDictionary<string, string> properties, IDictionary<string, object> description)
+        public void Authenticated(ClaimsPrincipal principal, IDictionary<string, string> properties, IDictionary<string, object> description)
         {
             var descrip = new AuthenticationDescription(description);
             _accepted.Add(descrip.AuthenticationScheme); // may not match identity.AuthType
-            _results.Add(new AuthenticationResult(identity, new AuthenticationProperties(properties), descrip));
+            _results.Add(new AuthenticationResult(principal, new AuthenticationProperties(properties), descrip));
         }
 
         public void NotAuthenticated(string authenticationScheme, IDictionary<string, string> properties, IDictionary<string, object> description)

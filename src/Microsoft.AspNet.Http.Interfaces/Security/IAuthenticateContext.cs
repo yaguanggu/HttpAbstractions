@@ -10,7 +10,7 @@ namespace Microsoft.AspNet.Http.Interfaces.Security
     {
         IEnumerable<string> AuthenticationSchemes { get; }
 
-        void Authenticated(ClaimsIdentity identity, IDictionary<string, string> properties, IDictionary<string, object> description);
+        void Authenticated(ClaimsPrincipal principal, IDictionary<string, string> properties, IDictionary<string, object> description);
 
         void NotAuthenticated(string authenticationScheme, IDictionary<string, string> properties, IDictionary<string, object> description);
     }

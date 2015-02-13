@@ -8,7 +8,8 @@ namespace Microsoft.AspNet.Http.Interfaces.Security
 {
     public interface ISignInContext
     {
-        IEnumerable<ClaimsIdentity> Identities { get; }
+        //IEnumerable<ClaimsPrincipal> Principals { get; }
+        ClaimsPrincipal Principal { get; }
         IDictionary<string, string> Properties { get; }
 
         void Accept(string authenticationType, IDictionary<string, object> description);

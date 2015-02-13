@@ -12,14 +12,15 @@ namespace Microsoft.AspNet.Http.Core.Security
     {
         private List<string> _accepted;
 
-        public SignInContext([NotNull] IEnumerable<ClaimsIdentity> identities, IDictionary<string, string> dictionary)
+        public SignInContext([NotNull] ClaimsPrincipal principal, IDictionary<string, string> dictionary)
         {
-            Identities = identities;
+            Principal = principal;
             Properties = dictionary ?? new Dictionary<string, string>(StringComparer.Ordinal);
             _accepted = new List<string>();
         }
 
-        public IEnumerable<ClaimsIdentity> Identities { get; private set; }
+        //public IEnumerable<ClaimsPrincipal> Principals { get; private set; }
+        public ClaimsPrincipal Principal { get; private set; }
 
         public IDictionary<string, string> Properties { get; private set; }
 
