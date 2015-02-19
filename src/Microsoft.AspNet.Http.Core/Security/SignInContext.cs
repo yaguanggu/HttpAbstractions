@@ -10,13 +10,14 @@ namespace Microsoft.AspNet.Http.Core.Security
 {
     public class SignInContext : ISignInContext
     {
-        private List<string> _accepted;
+        private bool _accepted;
 
-        public SignInContext([NotNull] ClaimsPrincipal principal, IDictionary<string, string> dictionary)
+        public SignInContext([NotNull] string authenticationScheme, [NotNull] ClaimsPrincipal principal, IDictionary<string, string> dictionary)
         {
+            AuthenticationScheme = authenticationScheme;
             Principal = principal;
             Properties = dictionary ?? new Dictionary<string, string>(StringComparer.Ordinal);
-            _accepted = new List<string>();
+            //_accepted = new List<string>();
         }
 
         //public IEnumerable<ClaimsPrincipal> Principals { get; private set; }
@@ -24,14 +25,18 @@ namespace Microsoft.AspNet.Http.Core.Security
 
         public IDictionary<string, string> Properties { get; private set; }
 
-        public IEnumerable<string> Accepted
+        public string AuthenticationScheme { get; private set; }
+
+        public bool Accepted
         {
             get { return _accepted; }
         }
 
-        public void Accept(string authenticationScheme, IDictionary<string, object> description)
+
+
+        public void Accept(IDictionary<string, object> description)
         {
-            _accepted.Add(authenticationScheme);
+            _accepted = true;
         }
     }
 }

@@ -11,7 +11,8 @@ namespace Microsoft.AspNet.Http.Interfaces.Security
         //IEnumerable<ClaimsPrincipal> Principals { get; }
         ClaimsPrincipal Principal { get; }
         IDictionary<string, string> Properties { get; }
+        string AuthenticationScheme { get; }
 
-        void Accept(string authenticationType, IDictionary<string, object> description);
+        void Accept(IDictionary<string, object> description);
     }
 }

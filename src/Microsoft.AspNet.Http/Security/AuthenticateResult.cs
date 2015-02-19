@@ -17,12 +17,9 @@ namespace Microsoft.AspNet.Http.Security
         /// <param name="identity">Assigned to Identity. May be null.</param>
         /// <param name="properties">Assigned to Properties. Contains extra information carried along with the identity.</param>
         /// <param name="description">Assigned to Description. Contains information describing the authentication provider.</param>
-        public AuthenticationResult(IPrincipal principal, [NotNull] AuthenticationProperties properties, [NotNull] AuthenticationDescription description)
+        public AuthenticationResult(ClaimsPrincipal principal, [NotNull] AuthenticationProperties properties, [NotNull] AuthenticationDescription description)
         {
-            if (principal != null)
-            {
-                principal = principal as ClaimsPrincipal ?? new ClaimsPrincipal(principal);
-            }
+            Principal = principal;
             Properties = properties;
             Description = description;
         }

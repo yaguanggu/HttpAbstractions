@@ -149,19 +149,20 @@ namespace Microsoft.AspNet.Http.Core
         {
             var handler = HttpAuthenticationFeature.Handler;
 
-            var signInContext = new SignInContext(principal, properties == null ? null : properties.Dictionary);
+            var signInContext = new SignInContext(authenticationScheme, principal, properties == null ? null : properties.Dictionary);
             if (handler != null)
             {
                 handler.SignIn(signInContext);
             }
 
+
             //// Verify all types ack'd
             //IEnumerable<string> leftovers = identities.Select(identity => identity.AuthenticationType).Except(signInContext.Accepted);
             //if (leftovers.Any())
-            if (!signInContext.Accepted.Contains(authenticationScheme))
+            if (!signInContext.Accepted)
             {
                 //throw new InvalidOperationException("The following authentication types were not accepted: " + string.Join(", ", leftovers));
-                throw new InvalidOperationException("The following authentication types were not accepted: " + authenticationScheme);
+                throw new InvalidOperationException("The following authentication scheme was not accepted: " + authenticationScheme);
             }
         }
 
