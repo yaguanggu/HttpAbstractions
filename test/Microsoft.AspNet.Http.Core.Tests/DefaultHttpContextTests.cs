@@ -2,10 +2,12 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.FeatureModel;
+using Microsoft.AspNet.Http.Core.Security;
 using Microsoft.AspNet.Http.Interfaces.Security;
 using Xunit;
 
@@ -80,7 +82,7 @@ namespace Microsoft.AspNet.Http.Core.Tests
         {
             var context = CreateContext();
             var handler = new AuthHandler();
-            context.SetFeature<IAuthenticationHandler>(handler);
+            context.SetFeature<IHttpAuthenticationFeature>(new HttpAuthenticationFeature() { Handler = handler });
             var user = new ClaimsPrincipal();
             context.Response.SignIn("ignored", user);
             Assert.True(handler.SignedIn);
@@ -117,11 +119,13 @@ namespace Microsoft.AspNet.Http.Core.Tests
             public void SignIn(ISignInContext context)
             {
                 SignedIn = true;
+                context.Accept(new Dictionary<string, object>());
             }
 
             public void SignOut(ISignOutContext context)
             {
                 SignedIn = false;
+                context.Accept("ignored", new Dictionary<string, object>());
             }
         }
 
