@@ -2,14 +2,11 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 
 using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using Microsoft.AspNet.Http;
 using Microsoft.AspNet.FeatureModel;
-using Microsoft.AspNet.Http.Interfaces;
+using Microsoft.AspNet.Http.Interfaces.Security;
 using Xunit;
 
 namespace Microsoft.AspNet.Http.Core.Tests
@@ -76,6 +73,56 @@ namespace Microsoft.AspNet.Http.Core.Tests
             context.Response.SignOut();
 
             Assert.Throws<InvalidOperationException>(() => context.Response.SignOut("Foo"));
+        }
+
+        [Fact]
+        public void SignInOutIn()
+        {
+            var context = CreateContext();
+            var handler = new AuthHandler();
+            context.SetFeature<IAuthenticationHandler>(handler);
+            var user = new ClaimsPrincipal();
+            context.Response.SignIn("ignored", user);
+            Assert.True(handler.SignedIn);
+            context.Response.SignOut("ignored");
+            Assert.False(handler.SignedIn);
+            context.Response.SignIn("ignored", user);
+            Assert.True(handler.SignedIn);
+        }
+
+        private class AuthHandler : IAuthenticationHandler
+        {
+            public bool SignedIn { get; set; }
+
+            public void Authenticate(IAuthenticateContext context)
+            {
+                throw new NotImplementedException();
+            }
+
+            public Task AuthenticateAsync(IAuthenticateContext context)
+            {
+                throw new NotImplementedException();
+            }
+
+            public void Challenge(IChallengeContext context)
+            {
+                throw new NotImplementedException();
+            }
+
+            public void GetDescriptions(IDescribeSchemesContext context)
+            {
+                throw new NotImplementedException();
+            }
+
+            public void SignIn(ISignInContext context)
+            {
+                SignedIn = true;
+            }
+
+            public void SignOut(ISignOutContext context)
+            {
+                SignedIn = false;
+            }
         }
 
         private HttpContext CreateContext()

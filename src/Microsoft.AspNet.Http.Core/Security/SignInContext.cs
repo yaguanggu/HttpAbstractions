@@ -32,8 +32,6 @@ namespace Microsoft.AspNet.Http.Core.Security
             get { return _accepted; }
         }
 
-
-
         public void Accept(IDictionary<string, object> description)
         {
             _accepted = true;
