@@ -155,32 +155,27 @@ namespace Microsoft.AspNet.Http.Core
                 handler.SignIn(signInContext);
             }
 
-
-            //// Verify all types ack'd
-            //IEnumerable<string> leftovers = identities.Select(identity => identity.AuthenticationType).Except(signInContext.Accepted);
-            //if (leftovers.Any())
+            // Verify all types ack'd
             if (!signInContext.Accepted)
             {
-                //throw new InvalidOperationException("The following authentication types were not accepted: " + string.Join(", ", leftovers));
                 throw new InvalidOperationException("The following authentication scheme was not accepted: " + authenticationScheme);
             }
         }
 
-        public override void SignOut([NotNull] IEnumerable<string> authenticationSchemes)
+        public override void SignOut(string authenticationScheme)
         {
             var handler = HttpAuthenticationFeature.Handler;
 
-            var signOutContext = new SignOutContext(authenticationSchemes);
+            var signOutContext = new SignOutContext(authenticationScheme);
             if (handler != null)
             {
                 handler.SignOut(signOutContext);
             }
 
             // Verify all types ack'd
-            IEnumerable<string> leftovers = authenticationSchemes.Except(signOutContext.Accepted);
-            if (leftovers.Any())
+            if (!string.IsNullOrWhiteSpace(authenticationScheme) && !signOutContext.Accepted)
             {
-                throw new InvalidOperationException("The following authentication types were not accepted: " + string.Join(", ", leftovers));
+                throw new InvalidOperationException("The following authentication scheme was not accepted: " + authenticationScheme);
             }
         }
     }

@@ -9,24 +9,23 @@ namespace Microsoft.AspNet.Http.Core.Security
 {
     public class SignOutContext : ISignOutContext
     {
-        private List<string> _accepted;
+        private bool _accepted;
 
-        public SignOutContext([NotNull] IEnumerable<string> authenticationSchemes)
+        public SignOutContext(string authenticationScheme)
         {
-            AuthenticationSchemes = authenticationSchemes;
-            _accepted = new List<string>();
+            AuthenticationScheme = authenticationScheme;
         }
 
-        public IEnumerable<string> AuthenticationSchemes { get; private set; }
+        public string AuthenticationScheme { get; }
 
-        public IEnumerable<string> Accepted
+        public bool Accepted
         {
             get { return _accepted; }
         }
 
-        public void Accept(string authenticationType, IDictionary<string, object> description)
+        public void Accept()
         {
-            _accepted.Add(authenticationType);
+            _accepted = true;
         }
     }
 }
