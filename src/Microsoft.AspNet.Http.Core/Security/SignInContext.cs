@@ -17,15 +17,13 @@ namespace Microsoft.AspNet.Http.Core.Security
             AuthenticationScheme = authenticationScheme;
             Principal = principal;
             Properties = dictionary ?? new Dictionary<string, string>(StringComparer.Ordinal);
-            //_accepted = new List<string>();
         }
 
-        //public IEnumerable<ClaimsPrincipal> Principals { get; private set; }
-        public ClaimsPrincipal Principal { get; private set; }
+        public ClaimsPrincipal Principal { get; }
 
-        public IDictionary<string, string> Properties { get; private set; }
+        public IDictionary<string, string> Properties { get; }
 
-        public string AuthenticationScheme { get; private set; }
+        public string AuthenticationScheme { get; }
 
         public bool Accepted
         {

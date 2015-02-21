@@ -75,14 +75,9 @@ namespace Microsoft.AspNet.Http
 
         public virtual void SignOut()
         {
-            SignOut(new string[0]);
+            SignOut(authenticationScheme: null);
         }
 
-        public virtual void SignOut(string authenticationScheme)
-        {
-            SignOut(new[] { authenticationScheme });
-        }
-
-        public abstract void SignOut(IEnumerable<string> authenticationSchemes);
+        public abstract void SignOut(string authenticationScheme);
     }
 }

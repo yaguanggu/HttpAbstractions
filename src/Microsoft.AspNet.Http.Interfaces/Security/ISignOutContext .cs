@@ -7,8 +7,8 @@ namespace Microsoft.AspNet.Http.Interfaces.Security
 {
     public interface ISignOutContext 
     {
-        IEnumerable<string> AuthenticationSchemes { get; }
+        string AuthenticationScheme { get; }
 
-        void Accept(string authenticationScheme, IDictionary<string, object> description);
+        void Accept();
     }
 }

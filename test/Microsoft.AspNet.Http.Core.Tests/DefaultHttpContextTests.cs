@@ -125,7 +125,7 @@ namespace Microsoft.AspNet.Http.Core.Tests
             public void SignOut(ISignOutContext context)
             {
                 SignedIn = false;
-                context.Accept("ignored", new Dictionary<string, object>());
+                context.Accept();
             }
         }
 
