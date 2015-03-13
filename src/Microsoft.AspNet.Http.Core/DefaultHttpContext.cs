@@ -100,7 +100,6 @@ namespace Microsoft.AspNet.Http.Core
                 }
                 return user;
             }
-            // REVIEW: should we apply claims transformation on set?
             set { HttpAuthenticationFeature.User = value; }
         }
 
