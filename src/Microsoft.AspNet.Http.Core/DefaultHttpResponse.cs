@@ -130,7 +130,7 @@ namespace Microsoft.AspNet.Http.Core
             Headers.Set(Constants.Headers.Location, location);
         }
 
-        public override void Challenge(AuthenticationProperties properties, [NotNull] string authenticationScheme)
+        public override void Challenge(AuthenticationProperties properties, string authenticationScheme)
         {
             HttpResponseFeature.StatusCode = 401;
             var handler = HttpAuthenticationFeature.Handler;
