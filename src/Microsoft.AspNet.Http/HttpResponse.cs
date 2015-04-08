@@ -51,24 +51,6 @@ namespace Microsoft.AspNet.Http
             Challenge(properties: null, authenticationScheme: authenticationScheme);
         }
 
-        public virtual void Challenge(params string[] authenticationSchemes)
-        {
-            Challenge(properties: null, authenticationSchemes: authenticationSchemes);
-        }
-
-        public virtual void Challenge(IEnumerable<string> authenticationSchemes)
-        {
-            Challenge(properties: null, authenticationSchemes: authenticationSchemes);
-        }
-
-        public virtual void Challenge(AuthenticationProperties properties, IEnumerable<string> authenticationSchemes)
-        {
-            foreach (var scheme in authenticationSchemes)
-            {
-                Challenge(properties, scheme);
-            }
-        }
-
         public abstract void Challenge(AuthenticationProperties properties, string authenticationScheme);
 
         public abstract void SignIn(string authenticationScheme, ClaimsPrincipal principal, AuthenticationProperties properties = null);
