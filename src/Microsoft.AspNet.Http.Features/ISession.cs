@@ -14,7 +14,7 @@ namespace Microsoft.AspNet.Http.Features
 
         bool TryGetValue(string key, out byte[] value);
 
-        void Set(string key, ArraySegment<byte> value);
+        void Set(string key, byte[] value);
 
         void Remove(string key);
 
